@@ -1,5 +1,7 @@
 # VPN-Pi-hole
 
+This guide will help you set up a VPN using WireGuard and Pi-hole for ad blocking on a Raspberry Pi. The VPN service allows you to connect to your local network remotely. By combining WireGuard and Pi-hole, you can ensure that all your network traffic is encrypted and filtered to block ads, providing a secure and ad-free browsing experience while at home and remotely.
+
 ## Update system & Install Docker
 
 Updates the system to the latest package.
@@ -41,7 +43,7 @@ services:
       - "80:80/tcp"
     environment:
       TZ: 'America/Los_Angeles'
-      # WEBPASSWORD: 'set a secure password here or it will be random, uncomment to edit
+      WEBPASSWORD: 'your_password'
     # Volumes store your data between container upgrades
     volumes:
       - './etc-pihole:/etc/pihole'
@@ -51,6 +53,10 @@ services:
       - NET_ADMIN # Required if you are using Pi-hole as your DHCP server, else not needed
     restart: unless-stopped
 ```
+
+Replace
+
+  - `your_password` to your new secure pihole Web Interface password. 
 
 Run the following command to build and start Pi-hole:
 ```sh 
@@ -164,23 +170,13 @@ Navigate to `http://<Devices_IP_Address>:51821` to access Wireguard Web
 
 Replace `<Device_IP_Address>` with the IP address obtained from the `hostname -I` command.
 
+## Additional Features
 
+### Setting Pi-hole as DNS Server on Your Devices
 
+  - On your device, go to the network settings and set the DNS server to the Pi-hole IP address.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+This setup will ensure that all DNS queries are routed through the Pi-hole, providing ad blocking and tracking capabilities even when not connected to the VPN.
 
 
 
