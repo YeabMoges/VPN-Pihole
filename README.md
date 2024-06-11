@@ -1,4 +1,4 @@
-# VPN-Pihole
+# VPN-Pi-hole
 
 ## Update system & Install Docker
 
@@ -17,6 +17,7 @@ sudo apt-get install docker -y
 In this case pihole
 ```sh
 mkdir pihole
+cd pihole
 ```
 
 ### Make a docker-compose file
@@ -51,30 +52,38 @@ services:
     restart: unless-stopped
 ```
 
-Run `sudo docker-compose up -d` to build and start pi-hole (Syntax may be docker compose on some systems)
+Run the following command to build and start Pi-hole:
+```sh 
+sudo docker-compose up -d
+` 
 
-Make sure pihole is up by running `sudo docker-compose ps`
+Verify Pi-hole is running:
+```sh
+sudo docker-compose ps
+`
 
-Document pihole container IP address by running
+Document pihole container IP address:
 ```sh
 sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' pihole
 ```
 
 
-## Setup Wireguard container
+## Setup Wireguard VPN container
  
 ### Create a wireguard directory
 ```sh
 mkdir wireguard
+cd wireguard
 ```
 
-### Make a docker-compose file
+### Create a docker-compose file
+Create and edit the `docker-compose.yml` file.
 ```sh
 sudo nano docker-compose.yml
 ```
 
-Copy docker-compose.yml.example to docker-compose.yml and update as needed. 
-Refer [wg-easy](https://github.com/wg-easy/wg-easy/tree/master) for customization
+Copy and paste the following configuration into the file and update as needed. 
+Refer [wg-easy](https://github.com/wg-easy/wg-easy/tree/master) repository for customization options.
 ```sh
 version: "3.8"
 
@@ -102,22 +111,28 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
 ```
 Replace
-`your_password` to your new secure wireguard Web Interface password. 
 
-`your_IP_Address` with your public Ip address, run ```sh curl ifconfig.me ``` 
+  - `your_password` to your new secure wireguard Web Interface password. 
 
-`Pihole_IP_Adrress` with the documented pihole address
+  - `your_IP_Address` with your public Ip address, run ```sh curl ifconfig.me ``` 
 
-Run `sudo docker-compose up -d` to build and start wireguard contaienr
+  - `Pihole_IP_Adrress` with the documented pihole address
 
-Make sure wireguard is up by running `sudo docker-compose ps`
+Run the following command to build and start the WireGuard container:
+```sh
+sudo docker-compose up -d
+`
 
-### Connect the WireGuard container to the same network as the Pi-hole container.
+Verify WireGuard is running: 
+```sh
+sudo docker-compose ps
+`
 
+### Connect the WireGuard container to the Pi-hole container.
+Connect the WireGuard container to the same network as the Pi-hole container:
 ```sh
 docker network connect pihole_default wireguard
 ```
-
 
 ## Port Forwarding for WireGuard
 
