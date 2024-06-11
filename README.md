@@ -138,7 +138,12 @@ sudo docker-compose ps
 ### Connect the WireGuard container to the Pi-hole container.
 Connect the WireGuard container to the same network as the Pi-hole container:
 ```sh
-docker network connect pihole_default wireguard
+sudo docker network connect pihole_default wireguard
+```
+
+Verify connection by pinging Pi-hole container
+```sh
+sudo docker exec -it wireguard ping <Pihole_IP_Address>
 ```
 
 ## Port Forwarding for WireGuard
@@ -174,9 +179,10 @@ Replace `<Device_IP_Address>` with the IP address obtained from the `hostname -I
 
 ### Setting Pi-hole as DNS Server on Your Devices
 
-  - On your device, go to the network settings and set the DNS server to the Pi-hole IP address.
+  - On any of your devices, go to the network settings and set the DNS server to `<Device_IP_Address>`.
 
-This setup will ensure that all DNS queries are routed through the Pi-hole, providing ad blocking and tracking capabilities even when not connected to the VPN.
+This will ensure that all DNS queries are routed through the Pi-hole, providing ad blocking and tracking capabilities even when not connected to the VPN.
+
 
 
 
