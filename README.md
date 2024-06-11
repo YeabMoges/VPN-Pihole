@@ -102,8 +102,10 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
 ```
 Replace
-`your_password` to your new secure wireguard Web Interface password 
-`your_IP_Address` with your private Ip address, Run ```sh curl ifconfig.me ``` to get IP 
+`your_password` to your new secure wireguard Web Interface password. 
+
+`your_IP_Address` with your public Ip address, run ```sh curl ifconfig.me ``` 
+
 `Pihole_IP_Adrress` with the documented pihole address
 
 Run `sudo docker-compose up -d` to build and start wireguard contaienr
