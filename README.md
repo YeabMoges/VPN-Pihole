@@ -120,7 +120,7 @@ Replace
 
   - `your_password` to your new secure wireguard Web Interface password. 
 
-  - `your_IP_Address` with your public Ip address, run ```sh curl ifconfig.me ``` 
+  - `your_IP_Address` with your public Ip address, run `curl ifconfig.me` 
 
   - `Pihole_IP_Adrress` with the documented pihole address
 
