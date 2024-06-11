@@ -119,6 +119,7 @@ Replace
   - `Pihole_IP_Adrress` with the documented pihole address
 
 Run the following command to build and start the WireGuard container:
+
 ```sh
 sudo docker-compose up -d
 `
