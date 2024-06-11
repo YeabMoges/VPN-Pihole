@@ -13,7 +13,7 @@ sudo apt-get install docker -y
 ```
 ## Setup Pihole container
 
-Create a new folder, in this case pihole
+Create a directory, in this case pihole
 ```sh
 mkdir pihole
 ```
@@ -23,7 +23,8 @@ Make a docker-compose file
 sudo nano docker-compose.yml
 ```
 
-Copy docker-compose.yml.example to docker-compose.yml and update as needed
+Copy docker-compose.yml.example to docker-compose.yml and update as needed. 
+Refer [docker-pi-hole](https://github.com/pi-hole/docker-pi-hole?tab=readme-ov-file) for customization
 ```sh
 # More info at https://github.com/pi-hole/docker-pi-hole/ and https://docs.pi-hole.net/
 services:
@@ -38,7 +39,7 @@ services:
       - "80:80/tcp"
     environment:
       TZ: 'America/Los_Angeles'
-      WEBPASSWORD: 'your_password'
+      # WEBPASSWORD: 'set a secure password here or it will be random, uncomment to edit
     # Volumes store your data between container upgrades
     volumes:
       - './etc-pihole:/etc/pihole'
@@ -50,3 +51,81 @@ services:
 ```
 
 Run `sudo docker-compose up -d` to build and start pi-hole (Syntax may be docker compose on some systems)
+
+Make sure pihole is up by running `sudo docker-compose ps`
+
+Document pihole container IP address by running
+```sh
+sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' pihole
+```
+
+
+## Setup Wireguard container
+ 
+Create a wireguard directory
+```sh
+mkdir wireguard
+```
+
+Make a docker-compose file
+```sh
+sudo nano docker-compose.yml
+```
+
+Copy docker-compose.yml.example to docker-compose.yml and update as needed. 
+Refer [wg-easy](https://github.com/wg-easy/wg-easy/tree/master) for customization
+```sh
+version: "3.8"
+
+services:
+  wg-easy:
+    container_name: wireguard
+    image: ghcr.io/wg-easy/wg-easy
+    environment:
+      - PASSWORD=your_password
+      - WG_HOST=your_IP_Address
+      - WG_DEFAULT_DNS=Pihole_IP_Adrress
+      - WG_PORT=51820
+    volumes:
+      - ./config:/etc/wireguard
+      - /lib/modules:/lib/modules
+    ports:
+      - "51820:51820/udp"
+      - "51821:51821/tcp"
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1
+```
+
+
+Run `sudo docker-compose up -d` to build and start wireguard contaienr
+
+Make sure wireguard is up by running `sudo docker-compose ps`
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
