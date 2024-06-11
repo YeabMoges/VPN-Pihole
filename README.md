@@ -179,7 +179,7 @@ Replace `<Device_IP_Address>` with the IP address obtained from the `hostname -I
 
 ### Setting Pi-hole as DNS Server on Your Devices
 
-  - On any of your devices, go to the network settings and set the DNS server to `<Device_IP_Address>`.
+  - On any of your devices, go to the network settings and set the DNS server to `Device_IP_Address`.
 
 This will ensure that all DNS queries are routed through the Pi-hole, providing ad blocking and tracking capabilities even when not connected to the VPN.
 
