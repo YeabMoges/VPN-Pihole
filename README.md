@@ -101,8 +101,9 @@ services:
       - net.ipv4.ip_forward=1
       - net.ipv4.conf.all.src_valid_mark=1
 ```
-Change `your_password` to your new secure wireguard Web Interface password, 
-`your_IP_Address` with your Ip address, & 
+Replace
+`your_password` to your new secure wireguard Web Interface password 
+`your_IP_Address` with your private Ip address, Run ```sh curl ifconfig.me ``` to get IP 
 `Pihole_IP_Adrress` with the documented pihole address
 
 Run `sudo docker-compose up -d` to build and start wireguard contaienr
@@ -114,6 +115,38 @@ Make sure wireguard is up by running `sudo docker-compose ps`
 ```sh
 docker network connect pihole_default wireguard
 ```
+
+
+## Port Forwarding for WireGuard
+
+To enable WireGuard, you need to configure port forwarding on your router. Since the settings vary depending on the router model, please refer to this [guide on opening ports](https://nordvpn.com/blog/open-ports-on-router/) for detailed instructions.
+
+### Steps to Follow
+
+1. Access your router's configuration page.
+2. Locate the port forwarding section in the router settings.
+3. Select your device running the WireGuard server.
+4. Forward the following port:
+   - **Port:** 51820
+   - **Protocol:** UDP
+
+## Access Pihole and Wireguard Web Interface
+
+### Geting your Device IP Address
+Run the following command
+```sh
+hostname -I
+```
+### Accessing the Web Interfaces
+Open a web browser on a device that is connected to the same local network as the device running Pi-hole and WireGuard.
+
+Navigate to `http://<Devices_IP_Address>/admin` to access Pihole Web
+
+Navigate to `http://<Devices_IP_Address>:51821` to access Wireguard Web 
+
+Replace `<Device_IP_Address>` with the IP address obtained from the `hostname -I` command.
+
+
 
 
 
