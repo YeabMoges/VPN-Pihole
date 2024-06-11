@@ -13,12 +13,13 @@ sudo apt-get install docker -y
 ```
 ## Setup Pihole container
 
-# Create a directory, in this case pihole
+### Create a directory 
+In this case pihole
 ```sh
 mkdir pihole
 ```
 
-# Make a docker-compose file
+### Make a docker-compose file
 ```sh
 sudo nano docker-compose.yml
 ```
@@ -62,12 +63,12 @@ sudo docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}
 
 ## Setup Wireguard container
  
-# Create a wireguard directory
+### Create a wireguard directory
 ```sh
 mkdir wireguard
 ```
 
-# Make a docker-compose file
+### Make a docker-compose file
 ```sh
 sudo nano docker-compose.yml
 ```
@@ -108,7 +109,7 @@ Run `sudo docker-compose up -d` to build and start wireguard contaienr
 
 Make sure wireguard is up by running `sudo docker-compose ps`
 
-# Connect the WireGuard container to the same network as the Pi-hole container.
+### Connect the WireGuard container to the same network as the Pi-hole container.
 
 ```sh
 docker network connect pihole_default wireguard
