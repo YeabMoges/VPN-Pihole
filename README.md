@@ -55,12 +55,12 @@ services:
 Run the following command to build and start Pi-hole:
 ```sh 
 sudo docker-compose up -d
-` 
+```
 
 Verify Pi-hole is running:
 ```sh
 sudo docker-compose ps
-`
+```
 
 Document pihole container IP address:
 ```sh
@@ -122,12 +122,12 @@ Run the following command to build and start the WireGuard container:
 
 ```sh
 sudo docker-compose up -d
-`
+```
 
 Verify WireGuard is running: 
 ```sh
 sudo docker-compose ps
-`
+```
 
 ### Connect the WireGuard container to the Pi-hole container.
 Connect the WireGuard container to the same network as the Pi-hole container:
